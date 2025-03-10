@@ -1,0 +1,114 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["tray", "hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "network",
+    "backlight",
+    "pulseaudio",
+    "battery",
+    "custom/powermenu",
+  ],
+  // modules-left
+  "tray": {
+    "icon-size": 15,
+    "spacing": 5,
+  },
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "active-only": false,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "󰌀",
+      "3": "󰉋",
+      "4": "",
+      "5": "",
+      "6": "󰄀",
+      "7": "➐",
+      "8": "➑",
+      "9": "➒",
+      "10": "➓",
+      "urgent": "󰀦",
+      "focused": "",
+    },
+  },
+  // modules-center
+  "clock": {
+    "interval": 1,
+    "format": "<span foreground='#b8bb26'></span> {:%I:%M %p  %A %b %d}",
+    "tooltip": true,
+    "tooltip-format": "{:%A, %d %B %Y}\n<tt>{calendar}</tt>",
+    "calendar": {
+      "format": {
+        "months": "<span color='#d3869b'><b>{}</b></span>",
+        "weeks": "<span color='#8ec07c'><b>W{}</b></span>",
+        "weekdays": "<span color='#fabd2f'><b>{}</b></span>",
+        "today": "<span color='#fb4934'><b><u>{}</u></b></span>",
+      },
+    },
+  },
+  // modules-right
+  "network": {
+    "interval": 1,
+    "format-wifi": "<span foreground='#83a598'>󰖩</span> {essid}",
+    "format-ethernet": "<span foreground='#83a598'>󰈀</span>  {ifname} ({ipaddr})",
+    "format-disconnected": "<span foreground='#fb4934'>󰖪</span> Disconnected",
+    "on-click": "sleep 0.1 && ghostty nmtui",
+    "tooltip": true,
+  },
+  "backlight": {
+    "on-scroll-up": "brightnessctl -q s 2%+",
+    "on-scroll-down": "brightnessctl -q s 2%-",
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "<span foreground='#fe8019'>󰃞</span>",
+      "<span foreground='#fe8019'>󰃟</span>",
+      "<span foreground='#fe8019'>󰃠</span>",
+    ],
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "<span foreground='#928374'>󰝟</span> Muted",
+    "format-icons": {
+      "default": [
+        "<span foreground='#d3869b'>󰕿</span>",
+        "<span foreground='#d3869b'>󰖀</span>",
+        "<span foreground='#d3869b'>󰕾</span>",
+      ],
+    },
+    "scroll-step": 1,
+    "on-click": "sleep 0.1 && wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "tooltip": false,
+  },
+  "battery": {
+    "interval": 10,
+    "states": {
+      "warning": 20,
+      "critical": 10,
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": [
+      "<span foreground='#fb4934'>󰂎</span>",
+      "<span foreground='#fb4934'>󰁺</span>",
+      "<span foreground='#fe8019'>󰁻</span>",
+      "<span foreground='#fe8019'>󰁼</span>",
+      "<span foreground='#fabd2f'>󰁽</span>",
+      "<span foreground='#fabd2f'>󰁾</span>",
+      "<span foreground='#b8bb26'>󰁿</span>",
+      "<span foreground='#b8bb26'>󰂀</span>",
+      "<span foreground='#8ec07c'>󰂁</span>",
+      "<span foreground='#8ec07c'>󰂂</span>",
+      "<span foreground='#83a598'>󱟢</span>",
+    ],
+    "format-full": "{icon} {capacity}%",
+    "format-charging": "<span foreground='#8ec07c'>󰂄</span> {capacity}%",
+    "tooltip": false,
+  },
+  "custom/powermenu": {
+    "format": "<span foreground='#fb4934'>󰐥</span>",
+    "on-click": "sleep 0.1 && /home/ayush/.config/rofi/scripts/powermenu.sh",
+    "tooltip": false,
+  },
+}

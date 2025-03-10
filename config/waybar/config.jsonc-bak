@@ -1,0 +1,94 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["tray", "hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "network",
+    "backlight",
+    "pulseaudio",
+    "battery",
+    "custom/powermenu",
+  ],
+  // modules-left
+  "tray": {
+    "icon-size": 15,
+    "spacing": 5,
+  },
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "active-only": false,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "󰄀",
+      "7": "➐",
+      "8": "➑",
+      "9": "➒",
+      "10": "➓",
+      "urgent": "󰀦",
+      "focused": "",
+    },
+  },
+  // modules-center
+  "clock": {
+    "interval": 1,
+    "format": "<span foreground='#9ECE6A'>󰥔</span> {:%I:%M %p  %A %b %d}",
+    "tooltip": true,
+    "tooltip-format": "{:%A, %d %B %Y}\n<tt>{calendar}</tt>",
+    "calendar": {
+      "format": {
+        "months": "<span color='#BB9AF7'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+      },
+    },
+  },
+  // modules-right
+  "network": {
+    "interval": 1,
+    "format-wifi": "󰖩 {essid}",
+    "format-ethernet": "󰈀  {ifname} ({ipaddr})",
+    "format-disconnected": "󰖪 Disconnected",
+    "on-click": "sleep 0.1 && ghostty nmtui",
+    "tooltip": true,
+  },
+  "backlight": {
+    "on-scroll-up": "brightnessctl -q s 2%+",
+    "on-scroll-down": "brightnessctl -q s 2%-",
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 Muted",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"],
+    },
+    "scroll-step": 1,
+    "on-click": "sleep 0.1 && wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "tooltip": false,
+  },
+  "battery": {
+    "interval": 10,
+    "states": {
+      "warning": 20,
+      "critical": 10,
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󱟢"],
+    "format-full": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "tooltip": false,
+  },
+  "custom/powermenu": {
+    "format": "󰐥",
+    "on-click": "sleep 0.1 && /home/ayush/.config/rofi/scripts/powermenu.sh",
+    "tooltip": false,
+  },
+}
