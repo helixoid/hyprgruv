@@ -5,7 +5,41 @@ return {
     lazy = false,
     opts = {
       bigfile = { enabled = true },
-      dashboard = { enabled = true },
+      dashboard = {
+        enabled = true,
+        preset = {
+          keys = {
+            { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+            { icon = ' ', key = 'g', desc = 'Find Text', action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = ' ', key = 'r', desc = 'Recent Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = '󰏕 ', key = 'u', desc = 'Update Plugins', action = ':Lazy sync' },
+            {
+              icon = ' ',
+              key = 'c',
+              desc = 'Neovim Configs',
+              action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+            },
+            {
+              icon = ' ',
+              key = '.',
+              desc = 'Dotfiles',
+              action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.expand('~/.config')})",
+            },
+            { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+          },
+          header = [[
+                                                                   
+      ████ ██████           █████      ██                    
+     ███████████             █████                            
+     █████████ ███████████████████ ███   ███████████  
+    █████████  ███    █████████████ █████ ██████████████  
+   █████████ ██████████ █████████ █████ █████ ████ █████  
+ ███████████ ███    ███ █████████ █████ █████ ████ █████ 
+██████  █████████████████████ ████ █████ █████ ████ ██████
+        ]],
+        },
+      },
       indent = { enabled = true },
       input = { enabled = true },
       notifier = { enabled = true },
@@ -14,11 +48,21 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
       toggle = { enabled = true },
-      picker = { enable = true, ui_select = true },
+      picker = {
+        enable = true,
+        ui_select = true,
+        hidden = true,
+        sources = {
+          explorer = {
+            auto_close = true,
+          },
+        },
+      },
       image = { enabled = true },
     },
     -- stylua: ignore
     keys = {
+      { "\\", function() Snacks.picker.explorer() end, desc = "Open File Explorer" },
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
       { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
