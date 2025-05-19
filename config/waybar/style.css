@@ -1,108 +1,254 @@
+/* Import colorscheme */
+@import "colorscheme.css";
+
+/* Global styling */
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrains Mono", "Symbols Nerd Font";
-    font-size: 1rem;
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrains Mono", "Symbols Nerd Font Mono";
+  font-size: 14px;
+  font-weight: bold;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
 }
+
+/* Waybar window */
 window#waybar {
-    background: #282828;
-    color: #ebdbb2;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 }
-tooltip {
-    background: #282828;
-    border-radius: 0.625rem;
-    border: 0.125rem solid #504945;
-}
-tooltip label {
-    color: #ebdbb2;
-    padding: 0.3125rem;
-}
-#workspaces {
-    margin: 0.1875rem 0.3125rem;
-    padding: 0 0.375rem;
-    border-radius: 0.5rem;
-}
-#workspaces button {
-    padding: 0 0.375rem;
-    margin: 0.1875rem 0;
-    background: transparent;
-    color: #ebdbb2;
-    border-radius: 0.5rem;
-}
-#workspaces button:hover {
-    background: #3c3836;
-    box-shadow: inherit;
-    text-shadow: inherit;
-}
-#workspaces button.active {
-    background: #83a598;
-    color: #282828;
-    font-weight: bold;
-}
-#workspaces button.urgent {
-    background: #fb4934;
-    color: #282828;
-}
-#clock {
-    padding: 0 0.625rem;
-    margin: 0.1875rem 0;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    color: #ebdbb2;
-}
+
+/* Common module styling */
+#workspaces,
+#mpris,
+#tray,
+#clock,
 #network,
+#temperature,
 #backlight,
 #pulseaudio,
-#battery,
-#custom-powermenu,
-#tray {
-    padding: 0 0.625rem;
-    margin: 0.1875rem 0.25rem;
-    border-radius: 0.5rem;
-    color: #ebdbb2;
+#battery {
+  background-color: @background;
+  color: @foreground;
+  border-radius: 10px;
+  margin: 3px 3px;
+  padding: 2px 10px;
+  border: 1px solid @border-color;
+  transition: all 0.3s ease;
 }
-/* Module-specific styling */
+
+/* Hover effect for all modules */
+#workspaces:hover,
+#mpris:hover,
+#tray:hover,
+#clock:hover,
+#network:hover,
+#temperature:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#battery:hover {
+  border-color: @border-color-hover;
+  box-shadow: 0 0 5px rgba(235, 219, 178, 0.2);
+}
+
+/* --------- LEFT MODULES STYLING --------- */
+
+/* Workspaces styling */
+#workspaces {
+  margin-left: 6px;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  color: @foreground-alt;
+  background: transparent;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+  color: @workspaces-color;
+  background-color: @background-alt;
+}
+
+#workspaces button:hover {
+  background-color: @background-alt;
+  color: @foreground;
+}
+
+#workspaces button.urgent {
+  background-color: @alert;
+  color: @background;
+}
+
+/* MPRIS styling */
+#mpris {
+  color: @primary;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+#mpris.paused {
+  color: @foreground-alt;
+  font-style: italic;
+}
+
+#mpris.stopped {
+  background-color: @background;
+  color: @disabled;
+}
+
+/* Tray styling */
+#tray {
+  margin-left: 6px;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  color: @alert;
+}
+
+/* --------- CENTER MODULES STYLING --------- */
+
+/* Clock styling */
+#clock {
+  color: @clock-color;
+  font-weight: bold;
+}
+
+/* --------- RIGHT MODULES STYLING --------- */
+
+/* Network styling */
+#network {
+  color: @network-color;
+}
+
 #network.disconnected {
-    color: #fb4934;
+  color: @alert;
 }
+
+#network.linked {
+  color: @foreground-alt;
+}
+
+#network.alt {
+  color: @network-color;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+/* Show different color for upload/download icons */
+#network.alt span:first-child {
+  color: @battery-charging-color;
+  margin-right: 0;
+}
+
+#network.alt span:last-child {
+  color: @secondary;
+  margin-left: 5px;
+}
+
+/* Temperature styling */
+#temperature {
+  color: @temp-color;
+}
+
+#temperature.critical {
+  color: @alert;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Backlight styling */
+#backlight {
+  color: @backlight-color;
+}
+
+/* PulseAudio styling */
+#pulseaudio {
+  color: @volume-color;
+}
+
 #pulseaudio.muted {
-    color: #665c54;
+  color: @disabled;
 }
+
+/* Battery styling */
+#battery {
+  color: @battery-color;
+  margin-right: 6px;
+}
+
 #battery.charging {
-    color: #8ec07c;
+  color: @battery-charging-color;
 }
+
 #battery.warning:not(.charging) {
-    color: #fe8019;
+  color: @battery-warning-color;
 }
+
 #battery.critical:not(.charging) {
-    color: #fb4934;
+  color: @battery-critical-color;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
-#custom-powermenu:hover {
-    background: #3c3836;
+
+/* Blinking animation */
+@keyframes blink {
+  to {
+    color: @foreground;
+    background-color: @alert;
+  }
 }
-#tray {
-    margin-left: 0.375rem;
+
+/* Tooltip styling */
+tooltip {
+  background-color: @tooltip-background;
+  border: 1px solid @tooltip-border;
+  border-radius: 8px;
+  min-width: 300px; /* Increased tooltip width */
 }
-/* Calendar styling for tooltip */
+
+tooltip label {
+  color: @foreground;
+  padding: 5px;
+}
+
+/* Calendar styling */
 calendar {
-    background: #282828;
-    border: 0.125rem solid #504945;
-    padding: 0.25rem;
-    border-radius: 0.5rem;
+  background-color: @background;
+  border: 1px solid @border-color;
+  padding: 5px;
+  border-radius: 8px;
 }
+
 calendar:selected {
-    background: #83a598;
-    color: #282828;
-    border-radius: 0.25rem;
+  background-color: @primary;
+  color: @background;
+  border-radius: 8px;
 }
+
 calendar.header {
-    color: #ebdbb2;
-    font-weight: bold;
+  color: @foreground;
+  font-weight: bold;
 }
+
 calendar.button {
-    color: #ebdbb2;
+  color: @foreground-alt;
 }
+
 calendar.highlight {
-    color: #ebdbb2;
-    font-weight: bold;
+  color: @secondary;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: @disabled;
 }
